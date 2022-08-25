@@ -9,6 +9,10 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Recipes\All.cshtml" />
+  </ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\stylecop.json" />
 	</ItemGroup>
@@ -43,5 +47,17 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Dashboard\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Recipes\All.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Recipes\All.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Recipes\All.cshtml" />
   </ItemGroup>
 </Project>

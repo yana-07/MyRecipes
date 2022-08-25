@@ -15,6 +15,7 @@
     using MyRecipes.Data.Models;
     using MyRecipes.Data.Repositories;
     using MyRecipes.Data.Seeding;
+    using MyRecipes.Services;
     using MyRecipes.Services.Data;
     using MyRecipes.Services.Mapping;
     using MyRecipes.Services.Messaging;
@@ -53,6 +54,10 @@
                 }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddSingleton(configuration);
 
@@ -66,6 +71,8 @@
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IRecipesService, RecipesService>();
+            services.AddTransient<IGotvachBgScraperService, GotvachBgScraperService>();
+            services.AddTransient<IVotesService, VotesService>();
         }
 
         private static void Configure(WebApplication app)
