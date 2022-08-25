@@ -21,6 +21,7 @@
                 .AllAsNoTracking() // няма да бъдат траквани и при SaveChanges() няма да бъдат нанесени промените (което в случая не ни е необходимо)
                 .Select(x => new { x.Id, x.Name })
                 .ToList()
+                .OrderBy(x => x.Name)
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
 
             // първата проекция е към анонимен тип, тъй като ef core ще гръмне, ако се опитаме да направим проекция към KeyValuePair,
