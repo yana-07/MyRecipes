@@ -17,6 +17,8 @@
 
         public string Extension { get; set; }
 
+        public string RemoteImageUrl { get; set; }
+
         // The content of the image is stored in the file system
         public string AddedByUserId { get; set; }
 
