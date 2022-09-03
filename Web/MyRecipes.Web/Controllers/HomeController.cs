@@ -11,11 +11,14 @@
     public class HomeController : BaseController
     {
         private readonly IGetCountsService getCountService;
+        private readonly IRecipesService recipesService;
 
         public HomeController(
-            IGetCountsService getCountsService)
+            IGetCountsService getCountsService,
+            IRecipesService recipesService)
         {
             this.getCountService = getCountsService;
+            this.recipesService = recipesService;
         }
 
         public IActionResult Index()
@@ -26,6 +29,7 @@
             // var viewModel = AutoMapperConfig.MapperInstance.Map<IndexViewModel>(countsDto); - не работи без регистрация
             var viewModel = new IndexViewModel
             {
+                RandomRecipes = this.recipesService.GetRandom<IndexPageRecipeViewModel>(7),
                 RecipesCount = countsDto.RecipesCount,
                 CategoriesCount = countsDto.CategoriesCount,
                 IngredientsCount = countsDto.IngredientsCount,

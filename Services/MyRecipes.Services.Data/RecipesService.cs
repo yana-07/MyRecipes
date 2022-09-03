@@ -115,5 +115,14 @@
         {
             return this.recipesRepository.AllAsNoTracking().Count();
         }
+
+        public IEnumerable<T> GetRandom<T>(int count)
+        {
+           return this.recipesRepository.All()
+                .OrderBy(x => Guid.NewGuid()) // специален случай в EF Core, подсказващ сортиране по рандъм критерий (успешно се превежда до ORDER BY NEWID())
+                .Take(count)
+                .To<T>()
+                .ToList();
+        }
     }
 }
