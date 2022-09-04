@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using MyRecipes.Common;
     using MyRecipes.Data.Models;
     using MyRecipes.Services.Data;
     using MyRecipes.Web.ViewModels.Recipes;
@@ -69,6 +70,28 @@
 
             // TODO: Redirect to recipe info page
             return this.RedirectToAction("All");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Edit(int id)
+        {
+            var viewModel = this.recipesService.GetById<EditRecipeInputModel>(id);
+            viewModel.CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs();
+            return this.View(viewModel);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditRecipeInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                input.CategoriesItems = this.categoriesService.GetAllAsKeyValuePairs();
+                return this.View(input);
+            }
+
+            await this.recipesService.UpdateAsync(input);
+            return this.RedirectToAction(nameof(this.ById), new { id = input.Id });
         }
 
         // Recipes/All/1
