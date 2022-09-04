@@ -152,7 +152,7 @@
                         'X-CSRF-TOKEN': antiForgeryToken
                     },
                     success: function(data) {
-                        $('#averageVoteValue').html(data.averageVote.ToFixed(1));
+                        $('#averageVoteValue').html(data.averageVote.toFixed(1));
                     },
                     contentType: "application/json",
                 });
