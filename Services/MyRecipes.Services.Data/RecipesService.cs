@@ -111,6 +111,17 @@
             return recipe;
         }
 
+        public IEnumerable<T> GetByIngredients<T>(IEnumerable<int> ingredientIds)
+        {
+            var query = this.recipesRepository.All();
+            foreach (var ingredientId in ingredientIds)
+            {
+                query = query.Where(x => x.Ingredients.Any(ri => ri.IngredientId == ingredientId));
+            }
+
+            return query.To<T>().ToList();
+        }
+
         public int GetCount()
         {
             return this.recipesRepository.AllAsNoTracking().Count();
