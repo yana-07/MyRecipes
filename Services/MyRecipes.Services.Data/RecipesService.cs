@@ -91,6 +91,13 @@
             await this.recipesRepository.SaveChangesAsync(); // добавяйки рецептата, всички нейни снимки ще се запишат в базата, както и съставките и (EF Core)
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var recipe = this.recipesRepository.All().FirstOrDefault(x => x.Id == id);
+            this.recipesRepository.Delete(recipe);
+            await this.recipesRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
         {
             // offset = (page - 1) * pageSize
